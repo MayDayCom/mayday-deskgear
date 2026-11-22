@@ -1,0 +1,100 @@
+<!doctype html><html lang="ko"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>PXL · 설정 미리보기</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#e1e1d8;color:#263330;font:16px "Malgun Gothic","Segoe UI",sans-serif}main{width:min(480px,96vw);margin:7vh auto}h1{font:600 24px Georgia,serif;letter-spacing:-.6px;margin:0 0 16px}nav{display:flex;flex-wrap:wrap;gap:6px;margin:18px 0}button,select,input{font:inherit}button{cursor:pointer}nav button,aside button{background:transparent;color:#263330;border:1px solid #9ca8a1;border-radius:18px;padding:7px 13px}nav button.active{background:#223230;color:white}.wrap{width:100%;aspect-ratio:3/2;position:relative}.screen{width:480px;height:320px;transform-origin:top left;background:#131d21;color:#f1ede2;overflow:hidden;position:relative;padding:16px 20px;font-size:17px;--accent:#f5bb75}.screen header{display:flex;align-items:center;height:44px;border-bottom:1px solid #445054;gap:12px;position:relative}.screen header:after{content:"";position:absolute;bottom:-1px;width:40px;height:2px;background:var(--accent)}.brand{font:600 13px Georgia,serif;letter-spacing:1.2px;color:var(--accent);margin-right:auto}.screen h2{font-size:19px;margin:0}.screen button,.screen select,.screen input{border:1px solid #46575a;background:#1d2a2e;color:#f1ede2;border-radius:5px;font-weight:600}.screen button{min-height:42px;padding:0 12px}.screen button:active{background:#39484a}.screen button.save{font-size:14px;background:var(--accent);color:#182327;min-width:60px}.body{display:grid;grid-template-columns:145px 1fr;height:238px;gap:16px;align-items:center}.dial{width:130px;height:130px;display:block}.caption{margin-top:6px;text-align:center;color:#b9c4bd;font:12px Georgia,serif;letter-spacing:2px;width:130px}.rows{min-width:0}.row{min-height:63px;border-bottom:1px solid #344247;display:flex;align-items:center;justify-content:space-between;gap:5px}.row:last-child{border:0}.row label{font-size:15px}.row button.sel{color:var(--accent);max-width:165px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.group{display:flex;align-items:center;gap:3px}.group button{width:42px;padding:0}.group b{min-width:32px;text-align:center;font-variant-numeric:tabular-nums}.list{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding-top:20px}.list button{text-align:left;height:92px}.list small{display:block;margin-top:6px;color:var(--accent);font-weight:400}.screen footer{position:absolute;bottom:13px;left:21px;right:21px;display:flex;gap:4px}.screen footer i{height:2px;width:11px;background:#344247}.screen footer i.on{background:var(--accent)}.editor{padding:28px 0}.editor input{padding:9px;width:100%;margin:12px 0}.editor p{color:#bdc7c4;font-size:15px}.gallery{display:grid;grid-template-columns:480px 480px;gap:10px;padding:10px;width:max-content}aside{display:flex;justify-content:flex-end}
+.styles{display:flex;gap:8px;padding-top:27px}.screen .stylecard{width:141px;height:175px;text-align:left;padding:12px}.stylecard.chosen{border-color:var(--accent);background:#243438}.swatch{height:74px;display:grid;place-items:center;margin-bottom:16px;background:#131d21;color:#b7c7bd}.swatch.one,.swatch.two{background-image:radial-gradient(#899c90 28%,transparent 32%);background-size:9px 9px}.swatch.two{background-size:5px 5px}.swatch.three:before{content:"";width:50px;height:50px;border-radius:100%;border:1px solid #dfba83;background:conic-gradient(from 39deg, #dfba83 0 3deg, transparent 3deg)}.stylecard small{display:block;color:#bdc7c4;margin-top:5px;font-size:12px}
+.screen[data-theme="PXL1"]{background:#181b19;--panel:#202622}.screen[data-theme="PXL2"]{background:#101a24;--panel:#182633}
+.screen[data-theme^="PXL"] .brand{font:600 13px Consolas,monospace;letter-spacing:1px}
+.screen[data-theme^="PXL"] .body{grid-template-columns:152px 1fr;gap:13px}
+.matrix{display:block;width:152px;height:auto;background:#101412;border-radius:4px}.matrixvalue{display:block;text-align:center;margin-top:10px;font:600 22px Consolas,monospace;color:var(--accent)}
+.screen[data-theme="PXL1"] button{border-radius:2px}.screen[data-theme="PXL1"] .row{border-bottom-style:dashed}
+.screen[data-theme="PXL2"] .row{border:0;background:var(--panel);padding:0 8px;margin:5px 0;border-radius:7px;min-height:58px}
+.detail{padding:8px 0;height:238px;overflow:auto}.detailLine{display:flex;align-items:center;justify-content:space-between;min-height:43px;border-bottom:1px solid #344247}.detailLine b{color:var(--accent)}.detail input{width:100%;padding:10px;margin:7px 0}.detail button{margin-top:4px}.results{max-height:132px;overflow:auto;display:grid;gap:2px}.results button{text-align:left}.toast{position:absolute;bottom:9px;right:18px;font-size:13px}.screen[data-theme=PXL1] .detailLine{border-bottom-style:dashed}.screen[data-theme=PXL2] .detailLine{background:#182633;padding:0 9px}.previewNote{font-size:13px;color:#505d59}</style><main><h1>PXL · Settings</h1><div class="wrap"><section class="screen"></section></div><nav></nav><p class="previewNote">기기 연결·펌웨어·검색 결과는 예시입니다. / Simulated device and search data.</p><aside><button id="lang">ENG</button></aside></main>
+<script>
+const pages=['System','Clock','Weather','Timer','Focus','Market','YouTube'],ko=['전체 설정','시계','날씨','타이머','집중 타이머','시세','유튜브'],colors=['#bdd0c0','#f5bb75','#8acdd7','#e7b473','#a5c793','#9dbce7','#ee9780'];
+const defaults={style:'PXL3',hour:24,date:false,city:'속초',unit:'°C',rate:15,min:5,sec:0,focus:25,rest:5,first:'Samsung',second:'',channel:'',motion:true,idle:10};
+let saved={...defaults},en=new URLSearchParams(location.search).get("lang")==="en",p=0,edit='',screen=document.querySelector('.screen');
+try{Object.assign(saved,JSON.parse(localStorage.getItem('meridian-settings-design-v1')))}catch{}
+let v={...saved};const t=(k,e)=>en?e:k,esc=x=>String(x).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const btn=(s,a,c='')=>'<button class="'+c+'" data-act="'+a+'">'+esc(s)+'</button>',row=(s,control)=>'<div class="row"><label>'+s+'</label>'+control+'</div>',sel=(s,a)=>btn(s,a,'sel'),toggle=x=>t(x?'켜짐':'꺼짐',x?'On':'Off');
+function step(label,k){return row(label,'<div class="group">'+btn('−','minus:'+k)+'<b>'+v[k]+'</b>'+btn('+','plus:'+k)+'</div>')}
+function summaryValue(){return [v.style,v.hour+'h',v.unit,String(v.min).padStart(2,'0')+':'+String(v.sec).padStart(2,'0'),v.focus+':00',v.second?'02':'01',v.motion?v.idle+'m':'OFF'][p]}
+const motifs=[[],['0011100','0100010','1001001','1001101','1000001','0100010','0011100'],['0022200','0200020','0201100','0011110','0111111','1111111','0000000'],['1111111','0100010','0020200','0002000','0010100','0112110','1111111'],['0002200','0002000','0110110','1111111','1111111','0111110','0011100'],['0000001','0000011','0010100','0101000','1000000','0000000','2222222'],['0000000','0111110','1112111','1112211','1112111','0111110','0000000']];
+function matrix(){
+ const dense=v.style==='PXL2', cols=dense?48:24, lines=cols*2/3, scale=dense?3:1;
+ const map=motifs[p], left=Math.floor((cols-7*scale)/2), top=Math.floor((lines-7*scale)/2);
+ let cells='';
+ for(let y=0;y<lines;y++)for(let x=0;x<cols;x++){
+   const pixel=map[Math.floor((y-top)/scale)]?.[Math.floor((x-left)/scale)];
+   const color=pixel==='1'?'var(--accent)':pixel==='2'?'#f4eddd':dense?'#20303b':'#2b332c';
+   cells+='<rect x="'+x+'" y="'+y+'" width=".83" height=".83" fill="'+color+'"/>';
+ }
+ return '<div><svg class="matrix" viewBox="0 0 '+cols+' '+lines+'" aria-hidden="true">'+cells+'</svg><output class="matrixvalue">'+esc(summaryValue())+'</output></div>';
+}
+function dial(){
+const val=summaryValue();
+let ticks='';for(let i=0;i<48;i++)ticks+='<path transform="rotate('+i*7.5+' 65 65)" d="M65 6v'+(i%4?3:8)+'" stroke="'+(i<12?'var(--accent)':'#465356')+'" stroke-width="'+(i%4?1:2)+'"/>';
+return '<div><svg class="dial" viewBox="0 0 130 130"><circle cx="65" cy="65" r="62" fill="none" stroke="#344247"/>'+ticks+'<text x="65" y="74" text-anchor="middle" fill="#f1ede2" font-size="27" font-family="Georgia">'+esc(val)+'</text></svg><div class="caption">'+pages[p].toUpperCase()+'</div></div>'}
+function rows(){switch(p){
+case 1:return row(t('시간 형식','Format'),sel(v.hour+' h','hour'))+row(t('날짜 표시','Date'),sel(toggle(v.date),'date'));
+case 2:return row(t('지역','City'),sel(v.city,'edit:city'))+row(t('온도 단위','Unit'),sel(v.unit,'unit'))+row(t('갱신 주기','Refresh'),sel(v.rate+t('분',' min'),'rate'));
+case 3:return step(t('분','Minutes'),'min')+step(t('초','Seconds'),'sec')+row('',sel(t('타이머 초기화','Reset timer'),'reset'));
+case 4:return step(t('집중 · 분','Focus · min'),'focus')+step(t('휴식 · 분','Break · min'),'rest')+row('',sel(t('타이머 초기화','Reset timer'),'reset'));
+case 5:return row(t('종목 1','Symbol 1'),sel(v.first,'edit:first'))+row(t('종목 2','Symbol 2'),sel(v.second||t('추가','Add'),'edit:second'));
+case 6:return row(t('채널','Channel'),sel(v.channel||t('직접 입력','Enter ID'),'edit:channel'))+row(t('화면보호기','Screensaver'),sel(toggle(v.motion),'motion'))+(v.motion?step(t('대기 · 분','Idle · min'),'idle'):'');
+}}
+const actions=['wifi','style','firmware','power'],names=()=>[t('Wi-Fi 설정','Wi-Fi'),t('화면 스타일','Display style'),t('펌웨어 업데이트','Firmware update'),t('종료','Power off')];
+function system(){return '<div class="list">'+actions.map((a,i)=>'<button data-act="edit:'+a+'">'+names()[i]+'<small>'+['Wi-Fi',v.style,'Firmware','Deep sleep'][i]+'</small></button>').join('')+'</div>'}
+function editor(){
+if(edit==='style')return '<div class="styles">'+['PXL1','PXL2','PXL3'].map((x,i)=>'<button data-act="style:'+x+'" class="stylecard '+(v.style===x?'chosen':'')+'"><span class="swatch '+['one','two','three'][i]+'"></span>'+x+(v.style===x?' ✓':'')+'<small>'+['24 × 16','48 × 32','Meridian'][i]+'</small></button>').join('')+'</div>';
+return '<div class="detail">'+detailBody()+'</div>'}
+let connected='',savedWifi=[],network='',tab='scan',query='',notice='',lastAction='';
+const networks=['PXL Studio','Workshop'];
+const cities=[['속초','Sokcho','강원 · KR'],['서울','Seoul','서울 · KR'],['고성','Goseong','강원 · KR'],['고성','Goseong','경남 · KR']];
+const stocks=[['Samsung','삼성전자','005930.KS'],['Apple','애플','AAPL'],['Bitcoin','비트코인','BTC-USD']];
+function parentView(){return ({password:'wifi',server:'firmware',rollback:'firmware',browser:'channel'})[edit]||''}
+function textLine(a,b){return '<div class="detailLine"><span>'+esc(a)+'</span><b>'+esc(b)+'</b></div>'}
+function field(type,value,hint){return '<input type="'+type+'" value="'+esc(value)+'" placeholder="'+esc(hint)+'" aria-label="'+esc(hint)+'" autocomplete="off">'}
+function options(){const data=edit==='city'?cities:stocks;
+return data.map((item,index)=>({item,index})).filter(x=>x.item.join(' ').toLowerCase().includes(query.trim().toLowerCase())).map(({item,index})=>sel((edit==='city'&&en?item[1]:item[0])+' · '+item[2],'pick:'+index)).join('')||t('검색 결과 없음','No matches')}
+function detailBody(){
+ const none=t('연결 안 됨','Disconnected'), cancel=btn(t('취소','Cancel'),'back');
+ switch(edit){
+ case 'wifi':return textLine('Wi-Fi',connected||none)+btn(t('주변 네트워크','Nearby'),'tabs:scan',tab==='scan'?'save':'')+' '+btn(t('저장 목록','Saved'),'tabs:saved',tab==='saved'?'save':'')+'<div class="results">'+((tab==='saved'?savedWifi:networks).map(n=>sel(n+(n===connected?' ✓':''),'network:'+networks.indexOf(n))).join('')||t('저장된 네트워크 없음','No saved networks'))+'</div>';
+ case 'password':return textLine('Wi-Fi',network)+field('password','',t('예시 암호 입력','Enter sample password'))+btn(t('연결','Connect'),'connect')+' '+btn(t('암호 표시','Show password'),'reveal');
+ case 'firmware':return textLine(t('현재 버전','Current'), 'v1.00c')+textLine(t('반대편 파티션','Other slot'),'v1.00b')+sel(t('이전 버전으로 복구','Restore previous version'),'edit:rollback')+textLine('Wi-Fi',connected||none)+(connected?btn(t('업데이트 서버 시작','Start update server'),'edit:server'):btn(t('Wi-Fi 설정','Wi-Fi settings'),'setupwifi'));
+ case 'server': case 'browser':return connected?textLine(t('접속 주소','Address'),'http://192.0.2.1'+(edit==='browser'?'/youtube':''))+textLine('ID','mayday')+textLine('PIN','12345678'):'<p>'+t('Wi-Fi 연결이 필요합니다.','Wi-Fi connection required.')+'</p>'+btn(t('Wi-Fi 설정','Wi-Fi settings'),'setupwifi');
+ case 'rollback': case 'power': case 'reset':return '<h3>'+({rollback:t('v1.00b로 복구할까요?','Restore v1.00b?'),power:t('기기를 종료할까요?','Power off the device?'),reset:t('타이머를 초기화할까요?','Reset the timer?')}[edit])+'</h3>'+cancel+' '+btn(t('확인','Confirm'),'confirm');
+ case 'city':case 'first':case 'second':return field('search',query,t('이름 또는 코드 검색','Search name or code'))+'<div class="results">'+options()+'</div>'+(edit==='second'&&v.second?sel(t('선택 해제','Clear selection'),'clearSecond'):'');
+ case 'channel':return field('text',v.channel,t('채널 핸들 또는 ID','Channel handle or ID'))+btn(t('적용','Apply'),'apply')+' '+sel(t('브라우저에서 입력','Enter in browser'),'edit:browser');
+ }
+ return ''}
+let wifiReturn=null;
+function detailsClick(a,k){
+ if(a==='edit'){notice='';query='';edit=k}
+ else if(a==='back'){
+   if(edit==='wifi'&&wifiReturn){({p,edit}=wifiReturn);wifiReturn=null}
+   else edit=parentView();notice='';
+ }else if(a==='setupwifi'){wifiReturn={p,edit};p=0;edit='wifi';tab='scan'}
+ else if(a==='tabs')tab=k;
+ else if(a==='network'){network=networks[Number(k)];if(savedWifi.includes(network)){connected=network;edit='wifi'}else edit='password'}
+ else if(a==='connect'){if(!screen.querySelector('input').value){screen.querySelector('input').focus();return true}connected=network;if(!savedWifi.includes(network))savedWifi.push(network);edit='wifi'}
+ else if(a==='reveal'){const el=screen.querySelector('input');el.type=el.type==='password'?'text':'password';screen.querySelector('[data-act="reveal"]').textContent=el.type==='text'?t('암호 숨김','Hide password'):t('암호 표시','Show password');return true}
+ else if(a==='confirm'){lastAction=edit;edit=parentView();notice=t('미리보기에서 확인했습니다.','Confirmed in preview.')}
+ else if(a==='clearSecond'){v.second='';edit=''}
+ else if(a==='pick'){const item=(edit==='city'?cities:stocks)[Number(k)];v[edit]=edit==='city'?(en?item[1]:item[0])+' · '+item[2]:item[0];edit=''}
+ else return false;
+ paint();return true}
+document.addEventListener('input',e=>{if(e.target.type==='search'){query=e.target.value;screen.querySelector('.results').innerHTML=options()}});
+function paint(){screen.dataset.theme=p&&v.style!=='PXL3'?v.style:'shared';screen.style.setProperty('--accent',colors[p]);screen.innerHTML='<header><h2>'+esc(actions.includes(edit)?names()[actions.indexOf(edit)]:en?pages[p]:ko[p])+'</h2><span class="brand">'+(p?(v.style==='PXL3'?'MERIDIAN':v.style):'PXL')+'</span>'+btn(edit?t('뒤로','Back'):t('저장','Save'),edit?'back':'save','save')+'</header>'+(edit?editor():p?'<div class="body">'+(v.style==='PXL3'?dial():matrix())+'<div class="rows">'+rows()+'</div></div>':system())+(notice?'<span class="toast">'+esc(notice)+'</span>':'')+'<footer>'+pages.map((_,i)=>'<i class="'+(i===p?'on':'')+'"></i>').join('')+'</footer>';
+document.querySelector('nav').innerHTML=pages.map((x,i)=>btn(en?x:ko[i],'page:'+i,i===p?'active':'')).join('');document.querySelector('#lang').textContent=en?'KOR':'ENG'}
+const ranges={min:[0,99],sec:[0,59],focus:[1,99],rest:[1,99],idle:[1,60]};
+document.onclick=e=>{if(e.target.id==='lang'){en=!en;paint();return}const target=e.target.closest('[data-act]');if(!target)return;const [a,k]=target.dataset.act.split(':');
+if(detailsClick(a,k))return;if(a==='page'){wifiReturn=null;notice='';p=Number(k);v={...saved};edit=''}else if(a==='edit'){edit=k}else if(a==='style'){v.style=k;saved.style=k;try{localStorage.setItem('meridian-settings-design-v1',JSON.stringify(saved))}catch{}edit=''}else if(a==='save'){saved={...v};try{localStorage.setItem('meridian-settings-design-v1',JSON.stringify(saved))}catch{}target.textContent=t('저장됨','Saved');return}else if(a==='apply'){const value=screen.querySelector('input').value.trim();if(!value&&['city','first'].includes(edit))return;v[edit]=value;edit=''}else if(a==='back')edit='';else if(a==='reset')edit='reset';else if(a==='date'||a==='motion')v[a]=!v[a];else if(a==='hour')v.hour=v.hour===24?12:24;else if(a==='unit')v.unit=v.unit==='°C'?'°F':'°C';else if(a==='rate')v.rate=v.rate>=60?5:v.rate+5;else if(a==='plus'||a==='minus')v[k]=Math.max(ranges[k][0],Math.min(ranges[k][1],v[k]+(a==='plus'?1:-1)));paint()};
+function scale(){screen.style.transform='scale('+document.querySelector('.wrap').clientWidth/480+')'}paint();scale();onresize=scale;
+if(location.hash==='#compare'){
+ const g=document.createElement('div');g.className='gallery';g.style.gridTemplateColumns='repeat(3,480px)';document.body.append(g);
+ for(p of [1,3,6])for(v.style of ['PXL1','PXL2','PXL3']){paint();const copy=screen.cloneNode(true);copy.style.transform='none';g.append(copy)}
+ document.querySelector('main').hidden=true;
+}
+if(location.hash==='#gallery'){const g=document.createElement('div');g.className='gallery';document.body.append(g);for(p=0;p<7;p++){paint();const copy=screen.cloneNode(true);copy.style.transform='none';g.append(copy)}edit='style';p=0;paint();const copy=screen.cloneNode(true);copy.style.transform='none';g.append(copy);document.querySelector('main').hidden=true}
+</script></html>

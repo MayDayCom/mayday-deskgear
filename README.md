@@ -4,6 +4,10 @@ ESP32-S3 JC3248W535 3.5인치 터치 보드용 탁상 디스플레이입니다. 
 
 [설치 및 업데이트](https://maydaycom.github.io/mayday-deskgear/) · [Installation in English](https://maydaycom.github.io/mayday-deskgear/en/) · [버전별 다운로드](https://github.com/MayDayCom/mayday-deskgear/releases)
 
+## USB 업데이트
+
+홈페이지의 USB 설치 버튼에서 Deskgear v1.00e 이상을 인식하면 반대편 슬롯에 일반 BIN을 저장합니다. 확인되지 않는 보드는 최초 설치·복구를 명시적으로 선택해야 합니다. v1.00d 이하 또는 OBI를 유지하려면 Wi-Fi로 한 번 전환하세요. [전체 화면 갤러리](https://maydaycom.github.io/mayday-deskgear/#screens)
+
 ## MAYDAY OBI와 함께 사용하기
 
 [배터리 진단용 MAYDAY OBI](https://maydaycom.github.io/mayday-obi/)와 같은 보드를 사용합니다. 현재 펌웨어의 Wi-Fi 업데이트 화면에서 일반 `firmware.bin`을 선택하면 반대편 슬롯에 설치합니다. 두 슬롯에 서로 다른 제품이 들어 있으면 복구 메뉴에서 제품명을 확인한 뒤 재부팅해 전환할 수 있습니다. 추가 업데이트는 반대편 슬롯을 교체합니다. `firmware.factory.bin`은 USB 최초 설치·복구용입니다.

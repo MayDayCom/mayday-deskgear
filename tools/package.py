@@ -1,4 +1,5 @@
 """Validate the two release assets and assemble the public Pages directory."""
+from datetime import datetime
 import argparse
 import hashlib
 import json
@@ -33,6 +34,9 @@ shutil.copytree(files, out / "firmware", dirs_exist_ok=True)
 manifest = {"name": "Mayday Deskgear", "version": version, "new_install_prompt_erase": True,
             "builds": [{"chipFamily": "ESP32-S3", "parts": [{"path": "firmware.factory.bin", "offset": 0}]}]}
 (out / "firmware/manifest.json").write_text(json.dumps(manifest), encoding="utf8")
+release = {"version": version, "build": datetime.strptime(build,"%b %d %Y %H:%M:%S").strftime("%Y.%m.%d-%H%M"),
+           "sha256": hashlib.sha256(app).hexdigest()}
+(out / "firmware/release.json").write_text(json.dumps(release), encoding="utf8")
 for path in out.rglob("*.html"):
     path.write_text(path.read_text(encoding="utf8").replace("{{VERSION}}",version), encoding="utf8")
 print(version)
