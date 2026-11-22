@@ -1,0 +1,52 @@
+name: Publish Deskgear
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+concurrency:
+  group: deskgear-publish
+  cancel-in-progress: false
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: build
+        run: |
+          set -eu
+          version=$(python3 tools/package.py --output public)
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+      - name: Verify package
+        run: test -s public/firmware/manifest.json && test -n "${{ steps.build.outputs.version }}"
+      - name: Archive versioned release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ steps.build.outputs.version }}
+        run: |
+          set -eu
+          if gh release view "$VERSION" >/dev/null 2>&1; then
+            mkdir archived
+            gh release download "$VERSION" --dir archived
+            if ! cmp -s firmware/firmware.bin archived/firmware.bin || ! cmp -s firmware/firmware.factory.bin archived/firmware.factory.bin; then
+              hash=$(sha256sum firmware/firmware.factory.bin | cut -c1-12)
+              tag="$VERSION-$hash"
+              if ! gh release view "$tag" >/dev/null 2>&1; then
+                gh release create "$tag" firmware/*.bin --latest --target "$GITHUB_SHA" --title "Mayday Deskgear $VERSION ($hash)" --notes-file RELEASE_NOTES.md
+              fi
+            fi
+          else
+            gh release create "$VERSION" firmware/*.bin --target "$GITHUB_SHA" --title "Mayday Deskgear $VERSION" --notes-file RELEASE_NOTES.md
+          fi
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
+      - id: deploy
+        uses: actions/deploy-pages@v4
