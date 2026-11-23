@@ -1,5 +1,7 @@
 import './installer-theme.js';
 import {installVersionDialogIntegration} from './deskgear-dialog.js';
+import {initializeCounters} from './install-counter.js';
+initializeCounters();
 const base = new URL('../firmware/', import.meta.url);
 const go = document.querySelector('#usb-go'), ok = document.querySelector('#board-ok');
 const status = document.querySelector('#usb-status');
