@@ -1,0 +1,18 @@
+{
+  "name": "mayday-deskgear-install-counter",
+  "main": "index.mjs",
+  "compatibility_date": "2026-11-23",
+  "workers_dev": true,
+  "preview_urls": false,
+  "d1_databases": [{
+    "binding": "INSTALL_COUNTS",
+    "database_name": "mayday-deskgear-install-counter",
+    "database_id": "56f2c7df-0516-489a-8503-64585d258838",
+    "migrations_dir": "migrations"
+  }],
+  "ratelimits": [{
+    "name": "INSTALL_RATE_LIMIT",
+    "namespace_id": "391024",
+    "simple": {"limit": 12, "period": 60}
+  }]
+}
