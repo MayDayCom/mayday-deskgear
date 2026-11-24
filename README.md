@@ -6,6 +6,15 @@ ESP32-S3 JC3248W535 3.5인치 터치 보드용 탁상 디스플레이입니다. 
 
 ## 업데이트 기록 / Release history
 
+### v1.00h BETA — 2026-11-24
+
+- 메인 설정창에 OBI 스타일 배터리 전압 표시 추가 (IO9, 측정 불가 시 `-- V`).
+- 국내 주식 프리마켓·정규장·애프터마켓 시세 자동 전환 (1분 갱신).
+- PXL1·PXL2의 시계와 PXL3의 주요 수치 변경 시 짧은 색상 전환 효과 추가.
+- Added board battery voltage in Settings, Korean extended-session quotes, and subtle value-change animations.
+
+[v1.00h 릴리즈 / Release](https://github.com/MayDayCom/mayday-deskgear/releases/tag/v1.00h)
+
 ### v1.00g BETA — 2026-11-23
 
 - 국내 주식 네이버 금융 연동 및 거래일 검증
