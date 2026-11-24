@@ -39,7 +39,7 @@ export function initializeCounters() {
     const img = document.createElement('img');
     img.alt = locale === 'en' ? 'Page views' : '페이지 조회 수';
     img.src = `https://hits.sh/maydaycom.github.io/mayday-deskgear.svg?style=flat&label=${encodeURIComponent(locale === 'en' ? 'views' : '조회')}&color=325e49&labelColor=626860`;
-    if (live) { link.append(img); footer.append(link); }
+    if (live) { link.append(img); (footer.querySelector('.footer-links') || footer).append(link); }
   }
   const heading = document.querySelector('#update article h3');
   if (!heading || !live) return;
